@@ -124,7 +124,9 @@ This implementation is deliberately simple to focus on the learning experience. 
 
 ## Conclusion
 
-This project demonstrates the relationship between high-level Solidity code and low-level EVM operations. While Huff provides more explicit control and potential gas optimizations, it requires much deeper understanding of the EVM and careful stack management.
+This basic project demonstrates the relationship between high-level Solidity code and low-level EVM operations. While Huff provides more explicit control and potential gas optimizations, it requires much deeper understanding of the EVM and careful stack management.
+
+Thanks to Patrick Collins whose teachings led to my understanding .
 
 ## License
 
