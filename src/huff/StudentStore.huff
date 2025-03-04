@@ -34,8 +34,8 @@ shr
 // if function_seclector == readNumberOfStudents -> jump to that code 
 
 
-// 0xcdfead2e is "update" function selector
-// 0xe026c017 is "read"  function selector 
+// 0x16758cb9 is "update" function selector
+// 0xf44c266 is "read"  function selector 
 dup1                // [function_selector, function_selector] 
 __FUNC_SIG(updateStudent)          // [0xcdfead2e, function_selector, function_selector] 
 eq                  // [true_if_function_selector_matches, function_selector] 
