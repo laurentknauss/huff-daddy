@@ -10,13 +10,13 @@ The goal of this project is to showcase an understanding of Huff as a low-level 
 
 ## Project Structure
 
-- `HorseStore.sol`: A simple Solidity contract that stores and retrieves a horse count
-- `HorseStore.huff`: The equivalent implementation in Huff language
+- `StudentStore.sol`: A simple Solidity contract that stores and retrieves a students count
+- `StudentStore.huff`: The equivalent implementation in Huff language
 
 ## The Smart Contract
 
 Our contract has very simple functionality:
-1. Store a number of horses in the blockchain
+1. Store a number of students in the blockchain
 2. Update that number through a function call
 3. Read the current number through another function call
 
@@ -28,12 +28,12 @@ This simplicity allows us to focus on the underlying EVM operations rather than 
 
 In Solidity, we declare:
 ```solidity
-uint256 numberOfHorses;
+uint256 numberOfStudents;
 ```
 
 In Huff, we must explicitly define the storage slot:
 ```
-#define constant NUMBER_OF_HORSES_STORAGE_SLOT = FREE_STORAGE_POINTER() // 0
+#define constant NUMBER_OF_STUDENTS_STORAGE_SLOT = FREE_STORAGE_POINTER() // 0
 ```
 
 ### Function Selectors
@@ -45,8 +45,8 @@ Solidity handles function dispatching automatically, but in Huff we need to:
 
 To get function selectors for your Huff implementation:
 ```bash
-cast sig "updateHorseNumber(uint256)"   # Returns 0xcdfead2e
-cast sig "readNumberOfHorses()"         # Returns 0xe026c017
+cast sig "updateStudentNumber(uint256)"   # Returns 0xcdfead2e
+cast sig "readNumberOfStudents()"         # Returns 0xe026c017
 ```
 
 ### The Stack Machine
@@ -84,7 +84,7 @@ forge build
 
 ### Compiling Huff
 ```bash
-huffc HorseStore.huff -b
+huffc StudentStore.huff -b
 ```
 
 ## Testing
@@ -101,8 +101,8 @@ One benefit of writing in Huff is potential gas optimization. The compiled bytec
 
 | Function | Solidity Gas | Huff Gas | Savings |
 |----------|-------------|---------|---------|
-| updateHorseNumber | ~44,000 | ~43,000 | ~2.3% |
-| readNumberOfHorses | ~2,400 | ~2,100 | ~12.5% |
+| updateStudentNumber | ~44,000 | ~43,000 | ~2.3% |
+| readNumberOfStudents | ~2,400 | ~2,100 | ~12.5% |
 
 *Note: Exact gas values may vary based on compiler versions and optimization settings.*
 
@@ -126,7 +126,7 @@ This implementation is deliberately simple to focus on the learning experience. 
 
 This basic project demonstrates the relationship between high-level Solidity code and low-level EVM operations. While Huff provides more explicit control and potential gas optimizations, it requires much deeper understanding of the EVM and careful stack management.
 
-Thanks to Patrick Collins whose teachings led to my understanding .
+Thanks to Patrick Collins whose teachings led to my understanding of the EVM at the lowest-level 
 
 ## License
 
