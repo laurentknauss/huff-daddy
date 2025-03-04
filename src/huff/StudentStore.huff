@@ -30,8 +30,8 @@ calldataload  // opcode loadinng the calldata onto the stack
 shr
 
 // Jump -> function data associated with the selector 
-// If function_selector == updateHorseNumber -> jump to that code
-// if function_seclector == readNumberOfHorses -> jump to that code 
+// If function_selector == updateStudentNumber -> jump to that code
+// if function_seclector == readNumberOfStudents -> jump to that code 
 
 
 // 0xcdfead2e is "update" function selector
@@ -40,13 +40,13 @@ dup1                // [function_selector, function_selector]
 __FUNC_SIG(updateStudent)          // [0xcdfead2e, function_selector, function_selector] 
 eq                  // [true_if_function_selector_matches, function_selector] 
 
-// jump to updateHorseNumber code is true 
-updateJump              // [updateHorseNumberProgramCounter, true/false, function_selector] 
+// jump to updateStudentNumber code is true 
+updateJump              // [updateStudentNumberProgramCounter, true/false, function_selector] 
 jumpi                   // [function_selector] 
 
 
 
-// readNumberOfHorses, 0xe026c017 
+// readNumberOfStudents, 0xe026c017 
 __FUNC_SIG(readNumberOfStudents)            // [0xe026c017, function_selector] 
 eq                         // [true if function_selector_matches] 
 readJump                   // [readJump, true_if_function_selector_matches] 
@@ -68,7 +68,7 @@ jumpi                      // []
               0x04                                      // [4] 
               calldataload                              // [value] 
               // 2. Give it a storage slot 
-              [NUMBER_OF_STUDENTS_STORAGE_SLOT]  // number of horses is located at index 0 (aka a pointer(ptr) to where the value is)  // [storage_slot, value]
+              [NUMBER_OF_STUDENTS_STORAGE_SLOT]  // number of studets  is located at index 0 (aka a pointer(ptr) to where the value is)  // [storage_slot, value]
               
               // 3. sstore opcode
               sstore 
