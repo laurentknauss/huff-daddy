@@ -1,20 +1,31 @@
 // send calldata -> function dispatch -> function 
 
-// The Contract creation bytcode step  which literaly means "Take the binary after me and stick it in chain" 
+// The Contract creation bytecode step  which literaly means "Take the binary after me and stick it in chain" 
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Interfaces */ 
-#define function updateHorseNumber(uint256) nonpayable returns()
-#define function readNumberOfHorses() view returns(uint256) 
+#define function updateStudentNumber(uint256) nonpayable returns()
+#define function readNumberOfStudents() view returns(uint256) 
 
 
-#define constant NUMBER_OF_HORSES_STORAGE_SLOT = FREE_STORAGE_POINTER() // 0
+#define constant NUMBER_OF_STUDENTS_STORAGE_SLOT = FREE_STORAGE_POINTER() // 0
 
 
 /* Entry point of the program */ 
 #define macro MAIN() = takes(0) returns (0) { // this is how you define a macro in huff 
 0x00
-calldataload 
+calldataload  // opcode loadinng the calldata onto the stack 
 0xe0 
 shr
 
@@ -26,7 +37,7 @@ shr
 // 0xcdfead2e is "update" function selector
 // 0xe026c017 is "read"  function selector 
 dup1                // [function_selector, function_selector] 
-__FUNC_SIG(updateHorseNumber)          // [0xcdfead2e, function_selector, function_selector] 
+__FUNC_SIG(updateStudent)          // [0xcdfead2e, function_selector, function_selector] 
 eq                  // [true_if_function_selector_matches, function_selector] 
 
 // jump to updateHorseNumber code is true 
@@ -36,7 +47,7 @@ jumpi                   // [function_selector]
 
 
 // readNumberOfHorses, 0xe026c017 
-__FUNC_SIG(readNumberOfHorses)            // [0xe026c017, function_selector] 
+__FUNC_SIG(readNumberOfStudents)            // [0xe026c017, function_selector] 
 eq                         // [true if function_selector_matches] 
 readJump                   // [readJump, true_if_function_selector_matches] 
 jumpi                      // []
@@ -46,18 +57,18 @@ jumpi                      // []
 
 // set this up as a valid JUMP destination 
     updateJump: 
-        SET_NUMBER_OF_HORSES() 
+        SET_NUMBER_OF_STUDENTS() 
     readJump:
-        GET_NUMBER_OF_HORSES() 
+        GET_NUMBER_OF_STUDENTS() 
 }
 
 
-#define macro SET_NUMBER_OF_HORSES() = takes(0) returns(0) {
+#define macro SET_NUMBER_OF_STUDENTS() = takes(0) returns(0) {
               // 1. Get the value to store from calldata  
               0x04                                      // [4] 
               calldataload                              // [value] 
               // 2. Give it a storage slot 
-              [NUMBER_OF_HORSES_STORAGE_SLOT]  // number of horses is located at index 0 (aka a pointer(ptr) to where the value is)  // [storage_slot, value]
+              [NUMBER_OF_STUDENTS_STORAGE_SLOT]  // number of horses is located at index 0 (aka a pointer(ptr) to where the value is)  // [storage_slot, value]
               
               // 3. sstore opcode
               sstore 
@@ -68,11 +79,11 @@ jumpi                      // []
 
 
 
-#define macro GET_NUMBER_OF_HORSES() = takes(0) returns(0) {
+#define macro GET_NUMBER_OF_STUDENTS() = takes(0) returns(0) {
               // 1. Get the storage slot 
               // 2. Load the value of that storage slot into memory 
               // 3. Return 
-              [NUMBER_OF_HORSES_STORAGE_SLOT]  // [key] 
+              [NUMBER_OF_STUDENTS_STORAGE_SLOT]  // [key] 
               sload                            // [value] 
               0x00                             // [0, value] 
               mstore                           // 
